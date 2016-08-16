@@ -6,4 +6,12 @@ class ApplicationController < ActionController::Base
   def current_cart
     Cart.find(id: cart_id)
   end
+
+
+    private
+
+  # Overwriting the sign_out redirect path method
+  def after_sign_out_path_for(users)
+    store_path
+  end
 end
