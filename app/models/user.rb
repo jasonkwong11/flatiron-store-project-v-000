@@ -3,5 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :current_cart, class_name: 'Cart'
 
 
-
+  def logged_in?
+    true if session[:id] 
+  end
 end

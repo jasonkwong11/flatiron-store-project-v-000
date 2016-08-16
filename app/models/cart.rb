@@ -22,4 +22,8 @@ class Cart < ActiveRecord::Base
      total_price
   end
 
+  def logged_in?
+    true if session[:id] 
+  end
+
 end
