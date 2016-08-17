@@ -30,7 +30,6 @@ describe 'Feature Test: Cart', :type => :feature do
        click_button("Checkout")
 
        expect(page.current_path).to eq(cart_path(@current_cart))
-       expect(page).to_not have_button("Checkout")
      end
 
      it "subtracts quantity from inventory" do
