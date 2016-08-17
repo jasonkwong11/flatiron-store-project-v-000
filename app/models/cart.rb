@@ -24,13 +24,4 @@ class Cart < ActiveRecord::Base
      total_price
   end
 
-  def checkout
-    line_items.each do |line_item|
-      line_item.item.inventory -= line_item.quantity
-      line_item.save
-    end
-    self.status = "submitted"
-    self.save
-  end
-
 end

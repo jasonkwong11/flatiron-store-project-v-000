@@ -18,7 +18,7 @@ before_action :set_cart, only: [:show, :checkout, :edit, :update, :destroy]
   end
 
   def show
-    @cart = Cart.find(params[:id])
+    @cart = current_user.current_cart
   end
 
   def current_cart
@@ -26,14 +26,23 @@ before_action :set_cart, only: [:show, :checkout, :edit, :update, :destroy]
   end
 
   def checkout
-    @cart = set_cart
-    @cart.checkout
+    remove_items
     current_user.current_cart = nil
-    redirect_to cart_path(@cart), notice: "Thanks for your order!"
+    current_user.current_cart.save
+    redirect_to cart_path(@cart)
   end
 
   private
     def set_cart
       @cart = Cart.find_by(id: params[:id])
+    end
+
+    def remove_items
+    
+      current_user.current_cart.line_items.each do |line_item|
+        item = Item.find(line_item.item_id)
+        item.inventory -= line_item.quantity
+        item.save
+     end
     end
 end

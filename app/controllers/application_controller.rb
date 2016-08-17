@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   end
 
 
-    private
+  private
 
   # Overwriting the sign_out redirect path method
-  def after_sign_out_path_for(users)
-    store_path
-  end
+   def total_price(price, quantity)
+     price * quantity
+   end
 end
